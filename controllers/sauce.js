@@ -1,9 +1,11 @@
 
 const fs = require('fs');
 const sauce= require('../models/sauce');
+
 // ajout de nouvelle sauce
 exports.createSauce = (req,res,next)=>{
     const sauceObject = json.parse(req.body.sauce);
+
     //supp l'id car mongoose génère automatique Id
     delete sauceObject._id;
     const sauce= new Sauce ({
@@ -14,6 +16,7 @@ exports.createSauce = (req,res,next)=>{
 sauce.save()
 .then(()=> res.status(201).json({message:'sauce enregistrée!' }))
 .catch(error=>res.status(400).json({error}));
+
 // modifier une sauce
 exports.modifySauce=(req,res,next)=>{}
 exports.deleteThing = (req, res, next) => {
