@@ -1,3 +1,4 @@
+// Utilisation de multer pour enregistrer les fichiers images
 const multer = require('multer');
 
 const MIME_TYPES = {
@@ -10,6 +11,7 @@ const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
+  // generation du nom du fichier:nm d'origine+n° unique+ extension
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
