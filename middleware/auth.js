@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require ('dotenv');
+dotenv.config();
 // validation userId en comparaison avec le token
 module.exports = (req, res, next) => {
   try {
@@ -11,7 +13,7 @@ module.exports = (req, res, next) => {
       next();
     }
   } catch {
-    res.status(401).json({
+    res.status(403).json({
       error: new Error('Invalid request!')
     });
   }
