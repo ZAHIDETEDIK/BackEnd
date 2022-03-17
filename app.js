@@ -9,12 +9,12 @@ const userRoutes=require('./router/user');
 const sauceRoutes=require('./router/sauce');
 const app=express();
 const cors = require('cors')
-// definition de headers afin d'eviter les erreurs de Cors
+ //definition de headers afin d'eviter les erreurs de Cors
 //app.use ((req,res,next)=>{
-   // res.setHeader('Access-Control-Allow-Origin', '*');
+    //res.setHeader('Access-Control-Allow-Origin', '*');
    // res.setHeader('Access-Control-Allow-header','Origin,X-Requested-With,Content,Accept,Content-Type,Authorization');
-    //res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,PATCH,OPTION');
-   // next();
+   // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,PATCH,OPTION');
+  //  next();
 //});
 app.use(cors())
 const password=process.env.PASSWORD
