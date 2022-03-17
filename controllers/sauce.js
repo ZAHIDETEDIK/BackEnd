@@ -3,10 +3,11 @@ const fs = require('fs');
 // Logiques métiers pour les sauces
 // Lecture de toutes les sauces dans la base de données (Get)
 //récoupération du tableau de tout les sauces
-exports.getAllSauces = (req, res, next) => {
+exports.getAllSauces = (req, res) => {
   sauce.find()
-  .then(sauce => res.status(200).json(sauce))
-  .catch(error => res.status(400).json({ error }));
+    .then(sauces => res.status(200).json(sauces))
+    .catch(error => res.status(400).json({ error }));
+  console.log('sauces')
 };
 
 
@@ -21,13 +22,12 @@ exports.getOneSauce = (req, res) => {
 exports.createSauce = (req, res) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
-
   // Création d'un nouvel objet Sauce
   const sauce = new sauce({
     ...sauceObject,
     // Création de l'URL de l'image : http://localhost:3000/image/nomdufichier 
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    
+
   });
   // Enregistrement de l'objet sauce dans la base de données
   sauce.save()
@@ -56,7 +56,7 @@ exports.deleteSauce = (req, res) => {
       // Récupération du nom du fichier
       const filename = sauce.imageUrl.split('/images/')[1];
       // On efface le fichier (unlink)
-      fs.unlink(`images/${filename}` , () => {
+      fs.unlink(`images/${filename}`, () => {
         sauce.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Objet supprimé !' }))
           .catch(error => res.status(400).json({ error }));

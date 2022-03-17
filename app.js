@@ -1,4 +1,4 @@
-require('dotenv').config()
+const dotenv=require('dotenv');
 const express=require('express');
 const mongoose= require('mongoose');
 const path = require ('path');
@@ -10,12 +10,12 @@ const sauceRoutes=require('./router/sauce');
 const app=express();
 const cors = require('cors')
  //definition de headers afin d'eviter les erreurs de Cors
-//app.use ((req,res,next)=>{
-    //res.setHeader('Access-Control-Allow-Origin', '*');
-   // res.setHeader('Access-Control-Allow-header','Origin,X-Requested-With,Content,Accept,Content-Type,Authorization');
-   // res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,PATCH,OPTION');
-  //  next();
-//});
+app.use ((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-header','Origin,X-Requested-With,Content,Accept,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,PATCH,OPTION');
+    next();
+});
 app.use(cors())
 const password=process.env.PASSWORD
 const userName=process.env.USERNAME
@@ -28,9 +28,11 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(morgan('combined'));
+app.use(helmet());
+app.use(bodyParser.json());
 // Enregistrement des routeurs
-app.use('/images',express.static(path.join(__dirname,'image')));
-app.use('/api/sauce',sauceRoutes);
+app.use('/images',express.static(path.join(__dirname,'images')));
+app.use('/api/sauces',sauceRoutes);
 app.use('/api/auth',userRoutes);
 
 module.exports = app;
