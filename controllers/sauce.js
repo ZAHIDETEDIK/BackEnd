@@ -1,11 +1,11 @@
-const sauce = require('../models/sauce');
+const Sauce = require('../models/sauce');
 const fs = require('fs');
 // Logiques métiers pour les sauces
 // Lecture de toutes les sauces dans la base de données (Get)
 //récoupération du tableau de tout les sauces
 exports.getAllSauces = (req, res) => {
-  sauce.find()
-    .then(sauces => res.status(200).json(sauces))
+  Sauce.find()
+    .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(400).json({ error }));
   console.log('sauces')
 };
@@ -13,7 +13,7 @@ exports.getAllSauces = (req, res) => {
 
 // Lecture d'une sauce avec son ID (Get/:id)
 exports.getOneSauce = (req, res) => {
-  sauce.findOne({ _id: req.params.id })
+  Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(404).json({ error }));
 };
@@ -23,7 +23,7 @@ exports.createSauce = (req, res) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   // Création d'un nouvel objet Sauce
-  const sauce = new sauce({
+  const sauce = new Sauce({
     ...sauceObject,
     // Création de l'URL de l'image : http://localhost:3000/image/nomdufichier 
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -31,7 +31,7 @@ exports.createSauce = (req, res) => {
   });
   // Enregistrement de l'objet sauce dans la base de données
   sauce.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !' }))
+    .then((Sauce) => res.status(201).json({ message: 'Objet enregistré !' }))
     .catch(error => res.status(400).json({ error }));
 };
 
@@ -44,14 +44,14 @@ exports.modifySauce = (req, res) => {
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
   // Si il n'existe pas d'image
-  sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Objet modifié !' }))
     .catch(error => res.status(400).json({ error }));
 };
 
 // Suppression d'une sauce (Delete)
 exports.deleteSauce = (req, res) => {
-  sauce.findOne({ _id: req.params.id })
+  Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
       // Récupération du nom du fichier
       const filename = sauce.imageUrl.split('/images/')[1];
@@ -71,18 +71,18 @@ exports.likeDisLikeSauce = (req, res) => {
   // Si l'utilisateur aime la sauce
   if (req.body.like === 1) {
     // On ajoute 1 like et on l'envoie dans le tableau "usersLiked"
-    sauce.updateOne({ _id: req.params.id }, { $inc: { likes: req.body.like++ }, $push: { usersLiked: req.body.userId } })
+    Sauce.updateOne({ _id: req.params.id }, { $inc: { likes: req.body.like++ }, $push: { usersLiked: req.body.userId } })
       .then(() => res.status(200).json({ message: 'Like ajouté !' }))
       .catch(error => res.status(400).json({ error }));
   } else if (req.body.like === -1) {
     // Si l'utilisateur n'aime pas la sauce
     // On ajoute 1 dislike et on l'envoie dans le tableau "usersDisliked"
-    sauce.updateOne({ _id: req.params.id }, { $inc: { dislikes: (req.body.like++) * -1 }, $push: { usersDisliked: req.body.userId } })
+    Sauce.updateOne({ _id: req.params.id }, { $inc: { dislikes: (req.body.like++) * -1 }, $push: { usersDisliked: req.body.userId } })
       .then(() => res.status(200).json({ message: 'Dislike ajouté !' }))
       .catch(error => res.status(400).json({ error }));
   } else {
     // Si like === 0 l'utilisateur supprime son vote
-    sauce.findOne({ _id: req.params.id })
+    Sauce.findOne({ _id: req.params.id })
       .then(sauce => {
         // Si le tableau "userLiked" contient l'ID de l'utilisateur
         if (sauce.usersLiked.includes(req.body.userId)) {
