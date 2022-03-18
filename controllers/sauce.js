@@ -1,22 +1,5 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');
-// Logiques métiers pour les sauces
-// Lecture de toutes les sauces dans la base de données (Get)
-//récoupération du tableau de tout les sauces
-exports.getAllSauces = (req, res) => {
-  Sauce.find()
-    .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(400).json({ error }));
-  console.log('sauces')
-};
-
-
-// Lecture d'une sauce avec son ID (Get/:id)
-exports.getOneSauce = (req, res) => {
-  Sauce.findOne({ _id: req.params.id })
-    .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(404).json({ error }));
-};
 
 // Création d'une nouvelle sauce (Post)
 exports.createSauce = (req, res) => {
@@ -31,8 +14,24 @@ exports.createSauce = (req, res) => {
   });
   // Enregistrement de l'objet sauce dans la base de données
   sauce.save()
-    .then((Sauce) => res.status(201).json({ message: 'Objet enregistré !' }))
+    .then(() => res.status(201).json({ message: 'Objet enregistré !' }))
     .catch(error => res.status(400).json({ error }));
+};
+// Lecture d'une sauce avec son ID (Get/:id)
+
+exports.getOneSauce = (req, res) => {
+  Sauce.findOne({ _id: req.params.id })
+    .then(sauce => res.status(200).json(sauce))
+    .catch(error => res.status(404).json({ error }));
+};
+// Logiques métiers pour les sauces
+// Lecture de toutes les sauces dans la base de données (Get)
+//récoupération du tableau de tout les sauces
+exports.getAllSauces = (req, res) => {
+  Sauce.find()
+    .then(sauces => res.status(200).json(sauce))
+    .catch(error => res.status(400).json({ error }));
+  console.log('sauces')
 };
 
 // Modification d'une sauce (Update)
