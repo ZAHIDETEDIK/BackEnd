@@ -12,7 +12,7 @@ const sauceSchema=mongoose.Schema({
     heat:{type:Number,required:true},
     likes:{type:Number,required:true,default: 0},
     disLike:{type:Number,required:true,default: 0},
-    usersLiked:{type:Number,required:true,default: 0},
+    usersLiked:{type:Array,required:true,default:[] },
     usersDisLiked:{type:Array,required:true,default:[]},
 
     
