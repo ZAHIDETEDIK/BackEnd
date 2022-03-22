@@ -85,7 +85,7 @@ exports.likeDisLikeSauce = (req, res) => {
       .catch((error) => res.status(400).json({ error }));
   }
   //Si l'utilisateur n'a pas aimé la sauce
-  // Pousser l'identifiant de l'utilisateur dans le tableau usersDislikes et diminuer les likes de 1
+  // Pousser l'identifiant de l'utilisateur dans le tableau usersDisliked et diminuer les likes de 1
   else if (req.body.like === -1) {
     Sauce.updateOne(
       { _id: req.params.id },
