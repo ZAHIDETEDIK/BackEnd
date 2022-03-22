@@ -21,7 +21,7 @@ mongoose
 
 app.use(express.json());
 
-//definition de headers afin d'eviter les erreurs de Cors
+//Definition de headers afin d'eviter les erreurs de Cors
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

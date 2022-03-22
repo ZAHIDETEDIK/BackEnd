@@ -100,7 +100,7 @@ exports.likeDisLikeSauce = (req, res) => {
       .catch((error) => res.status(400).json({ error }));
   }
 
-  // si l utilisateur change d avis
+  // Si l utilisateur change d avis
   else {
     Sauce.findOne({ _id: req.params.id })
       .then((sauce) => {
