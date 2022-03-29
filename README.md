@@ -28,19 +28,19 @@ Toutes les routes relatives à la sauce doivent exiger une demande authentifiée
 
 Toutes les opérations de la base de données doivent utiliser le pack Mongoose avec des schémas de données stricts.
 
-Construit avec:
+CONSTRUIT  AVEC  :
 
 Node.js
 
 Express
 
-MongoDB  
+MongoDB  ( la  connection  à  mangodb  se fai  a  avec  les  informations  indiqués  dans le fichier  .env)
 
 Mongoose pour  la  communication ave  mangoDB
 
 Multer configuré ici de maninière à stocker les image de sauces.
 
-MODULE  DE SECURITE  UTILISE:
+MODULES  DE  SECURIT  UTILISE :
 
 Dotenv  permet de travailler avec des variable d'environn  et securiser les mots de passe.
 
@@ -50,15 +50,13 @@ JWT est un module node.js qui permet de crypter les tokens d'authentification en
 
 Bcrypt permet de faire un "hash" du mot de passe du client, de maniere a ce que cette chaine de caractère ne soit pas stockées coté serveur (mais seulement ce hash). Ainsi lorsque l'utilisateur se connecte avec son mot de passe, ce mot de passe est de nouveau haché et comparé au hash du serveur.
 
-POUR COMMENCER:
+POUR  COMMENCER:  
 
-copiez  ce reposi  ZAHIDETEDIK/BackEnd
+Clonez  le  repository  du  Back  ZAHIDETEDIK/BackEnd
 npm instal  si ce n est pas déjà  fait.
 
 ainsi que des different  plugins  et framework  deja enumeré si ce n'est pas deja fait.
 
 start  npm
 
-copiez le repo du front également et passez sur le  porthttp://localhost:8080. 
-repo github : WEB - DEVELOPEsss  - P6
-
+Clonez le repository  du  dossier  front WEB-DEVELOPERS-P6 pour acceder à l'application.  
