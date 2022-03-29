@@ -59,7 +59,6 @@ ainsi que des different  plugins  et framework  deja enumeré si ce n'est pas de
 
 start  npm
 
-copiez le repo du front également et passez sur le  porthttp://localhost:8080.
+copiez le repo du front également et passez sur le  porthttp://localhost:8080. 
 repo github : WEB - DEVELOPEsss  - P6
-
 
